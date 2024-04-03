@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "852130883213",
+    "project_id": "cinq-etoiles-f2bce",
+    "storage_bucket": "cinq-etoiles-f2bce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852130883213:android:19bd5cf1db0389309724c4",
+        "android_client_info": {
+          "package_name": "com.example.cinq_etoiles_user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyColtXKPH06q4ThmprPixNI-P1Rj3u60WA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852130883213:android:63abba6f25a33a1c9724c4",
+        "android_client_info": {
+          "package_name": "com.example.cinq_etoils"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyColtXKPH06q4ThmprPixNI-P1Rj3u60WA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
