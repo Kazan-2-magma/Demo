@@ -6,21 +6,19 @@ import 'clientss.dart';
 
 class FirebaseServiceClient {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //************client************
 
-  // Method to add a client to Firestore
   Future<String> ajouterClient(Client client) async {
     try {
       DocumentReference docRef = await _firestore.collection('clients').add(client.toJson());
-      return docRef.id; // Return the ID of the added client
+      return docRef.id;
     } catch (e) {
       print('Erreur lors de l\'ajout du client: $e');
-      throw e; // Rethrow the error
+      throw e;
     }
   }
 
   // Method to delete a client from Firestore
-// Method to delete a client from Firestore and corresponding engagements
+  // Method to delete a client from Firestore and corresponding engagements
   Future<void> supprimerClient(String clientId) async {
     try {
       // Delete client document
@@ -42,7 +40,6 @@ class FirebaseServiceClient {
     }
   }
 
-  // Method to update a client in Firestore
   Future<void> modifierClient(String clientId, Client nouveauClient) async {
     try {
       await _firestore.collection('clients').doc(clientId).update({

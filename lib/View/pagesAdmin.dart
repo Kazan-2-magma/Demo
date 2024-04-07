@@ -31,7 +31,7 @@ class _pagesAdminState extends State<pagesAdmin> {
   final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
   List<bool> pageStates = [true, false, false, false, false]; // Maintains the state of each page
   int currentIndex = 0;
-  late Userapp userApp ;
+  Userapp? userApp ;
 
   @override
   void initState() {
@@ -65,6 +65,7 @@ class _pagesAdminState extends State<pagesAdmin> {
         }
       } else {
         print('Current user is null');
+
       }
     } catch (e) {
       print('Error loading user: $e');
@@ -88,21 +89,21 @@ class _pagesAdminState extends State<pagesAdmin> {
         padding: const EdgeInsets.symmetric( vertical: 10),
         child: ListView(
           children: [
-             ListTile(
+            ListTile(
               leading: CircleAvatar(
-                backgroundImage: userApp.photoUrl.isNotEmpty ? NetworkImage(userApp.photoUrl)  // Utiliser l'image du profil si elle est disponible
-                    : NetworkImage("https://firebasestorage.googleapis.com/v0/b/cinq-etoiles-f2bce.appspot.com/o/profil%2Fdefault_imag.png?alt=media&token=2746acb3-e5cd-4218-a036-e2372b93e3fa"), // Utiliser une image par défaut si l'image du profil est vide
+                backgroundImage: userApp!.photoUrl.isNotEmpty
+                    ? NetworkImage(userApp!.photoUrl)  // Utiliser l'image du profil si elle est disponible
+                    : const NetworkImage("https://firebasestorage.googleapis.com/v0/b/cinq-etoiles-f2bce.appspot.com/o/profil%2Fdefault_imag.png?alt=media&token=2746acb3-e5cd-4218-a036-e2372b93e3fa"), // Utiliser une image par défaut si l'image du profil est vide
               ),
-
                title: Text(
-                "${userApp.firstName} ${userApp.lastName}",
+                "${userApp!.firstName} ${userApp!.lastName}",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                     fontSize:20),
               ),
               subtitle: Text(
-                userApp.email,
+                userApp!.email,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
@@ -214,7 +215,7 @@ class _pagesAdminState extends State<pagesAdmin> {
             if (pageStates[1]) ProjetsView(firebaseService:firebaseService,),
             if (pageStates[2]) const ClientsView(),
             if (pageStates[3]) const userView(),
-            if (pageStates[4]) ProfilView(firebaseServiceUser: firebaseServiceuser, user: userApp, storageService: storageService,),
+            if (pageStates[4]) ProfilView(firebaseServiceUser: firebaseServiceuser, user: userApp!, storageService: storageService,),
           ],
         ),
       ),

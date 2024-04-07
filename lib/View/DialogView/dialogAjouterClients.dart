@@ -58,7 +58,7 @@ class _ajouteClientsState extends State<ajouteClients> {
                       color: AppColors.bleu,
                       child: const Text(
                         "Ajouter Client",
-                        style: TextStyle(color: AppColors.blanc, fontSize: 30),
+                        style: TextStyle(color: AppColors.blanc, fontSize: 25),
                       ))),
               const SizedBox(
                 height: 10,
@@ -361,20 +361,22 @@ class _ajouteClientsState extends State<ajouteClients> {
               ),
               Row(
                 children: [
-                  ElevatedButton.icon(
-                    label: const Text("annuler"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.close),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.rouge,
-                        foregroundColor: AppColors.blanc,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                  Flexible(
+                    child: ElevatedButton.icon(
+                      label: const Text("Annuler"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.rouge,
+                          foregroundColor: AppColors.blanc,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                   ),
                   const SizedBox(
-                    width: 40,
+                    width: 10,
                   ),
                   ElevatedButton.icon(
                     label: const Text("Ajouter"),

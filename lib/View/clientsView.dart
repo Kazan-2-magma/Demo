@@ -36,8 +36,7 @@ class _ClientsViewState extends State<ClientsView> {
         projects = fetchedProjects;
         // Set the default project here
         if (projects.isNotEmpty) {
-          selectedProjectId =
-              projects.first.id; // Select the first project by default
+          selectedProjectId = projects.first.id; // Select the first project by default
         }
       });
     });
@@ -50,89 +49,92 @@ class _ClientsViewState extends State<ClientsView> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Row(children: [
-            Expanded(
-              child: Align(
-                alignment: AlignmentDirectional(0, -1),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                  child: Container(
-                    width: double.infinity,
-                    child: DropdownButtonFormField<String>(
-                      value: selectedProjectId,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedProjectId = newValue;
-                        });
-                      },
-                      items: projects.map((Projet projet) {
-                        return DropdownMenuItem<String>(
-                          value: projet.id,
-                          child: Text(projet.nomProjet),
-                        );
-                      }).toList(),
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(
-                          color: AppColors.bleu,
-                        ),
-                        labelText: 'Choisir un projet',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: AppColors.bleu,
-                            width: 2,
+          Row(
+              children: [
+                  Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional(0, -1),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      child: Container(
+                        width: double.infinity,
+                        child: DropdownButtonFormField<String>(
+                          value: selectedProjectId,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedProjectId = newValue;
+                            });
+                          },
+                          items: projects.map((Projet projet) {
+                            return DropdownMenuItem<String>(
+                              value: projet.id,
+                              child: Text(projet.nomProjet),
+                            );
+                          }).toList(),
+                          decoration: InputDecoration(
+                            labelStyle: const TextStyle(
+                              color: AppColors.bleu,
+                            ),
+                            labelText: 'Choisir un projet',
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: AppColors.bleu,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: AppColors.bleu,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            contentPadding: const EdgeInsets.all(12),
+                            prefixIcon: const Icon(Icons.business_center,
+                              color: AppColors.bleu,),
                           ),
-                          borderRadius: BorderRadius.circular(10),
+                          iconSize: 30,
+                          iconEnabledColor: AppColors.bleu,
+                          iconDisabledColor: AppColors.bleu,
+                          style: const TextStyle(
+                              color: AppColors.bleu, fontSize: 20),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: AppColors.bleu,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        contentPadding: const EdgeInsets.all(12),
-                        prefixIcon: const Icon(Icons.business_center,
-                          color: AppColors.bleu,),
                       ),
-                      iconSize: 30,
-                      iconEnabledColor: AppColors.bleu,
-                      iconDisabledColor: AppColors.bleu,
-                      style: const TextStyle(
-                          color: AppColors.bleu, fontSize: 20),
                     ),
                   ),
                 ),
-              ),
-            ),
-            // Bouton ajouter
-            Align(
-              alignment: AlignmentDirectional(1, -1),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 4, 5, 4),
-                child: ElevatedButton.icon(
-                  label: Text("Ajouter"),
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          bool isChecked = false;
-                          return ajouteClients();
-                        }).then((_) {
+                  // Bouton ajouter
+                  Align(
+                  alignment: AlignmentDirectional(1, -1),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 4, 5, 4),
+                    child: ElevatedButton.icon(
+                      label: Text("Ajouter"),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              bool isChecked = false;
+                              return ajouteClients();
+                            }).then((_) {
 
-                    });
-                  },
-                  icon: Icon(Icons.person_add_alt_1),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.vert,
-                      foregroundColor: AppColors.blanc,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                        });
+                      },
+                      icon: Icon(Icons.person_add_alt_1),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.vert,
+                          foregroundColor: AppColors.blanc,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ]),
-          Text("Liste de clients :",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+          ]
+          ),
+          const Text("Liste de clients :",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           const Divider(
             height: 30,
             thickness: 1,
@@ -144,9 +146,17 @@ class _ClientsViewState extends State<ClientsView> {
              future: selectedProjectId != null ? FirebaseServiceClient().getClientsForProject(selectedProjectId!) : null,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return const Center(
+                      child: Text(
+                          'Error: Something went wrong',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 25.0
+                          ),
+                      )
+                  );
                 } else {
                   List<Client>? clients = snapshot.data;
                   if (clients != null && clients.isNotEmpty) {
@@ -155,20 +165,20 @@ class _ClientsViewState extends State<ClientsView> {
                       itemBuilder: (context, index) {
                         return Card(
                           elevation: 2.0,
-                          margin: EdgeInsets.symmetric(
+                          margin:const EdgeInsets.symmetric(
                               horizontal: 10.0, vertical: 5.0),
                           child: ListTile(
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding:const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
                             title: Text(
                               '${clients[index].nom} ${clients[index].prenom}',
-                              style: TextStyle(
+                              style:const TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
                               'Email :${clients[index].email} \nTelephone : ${clients[index]
                                   .numeroTelephone}',
-                              style: TextStyle(fontSize: 14.0),
+                              style:const TextStyle(fontSize: 14.0),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -180,14 +190,14 @@ class _ClientsViewState extends State<ClientsView> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text("Confirmation"),
-                                          content: Text("Voulez-vous vraiment supprimer ce client ?"),
+                                          title:const Text("Confirmation"),
+                                          content:const Text("Voulez-vous vraiment supprimer ce client ?"),
                                           actions: [
                                             TextButton(
                                               onPressed: () {
                                                 Navigator.of(context).pop(); // Close the dialog
                                               },
-                                              child: Text("Annuler"),
+                                              child:const Text("Annuler"),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -206,25 +216,25 @@ class _ClientsViewState extends State<ClientsView> {
                                   color: Colors.red,
                                 ),
                                 Checkbox(
-                                    value: selectedEmails.contains(clients[index].email),
-                                  onChanged: (isChecked) {
+                                    value: selectedEmails.contains(clients[index].numeroTelephone),
+                                    onChanged: (isChecked) {
                                     setState(() {
                                       if (isChecked!) {
-                                        selectedEmails.add(clients[index].email);
+                                        selectedEmails.add(clients[index].numeroTelephone);
                                       } else {
-                                        selectedEmails.remove(clients[index].email);
+                                        selectedEmails.remove(clients[index].numeroTelephone);
                                       }
                                     });
                                   },)
-
                               ],
                             ),
                           ),
                         );
                       },
                     );
-                  } else {
-                    return Center(child: Text('Aucun client trouvé.'));
+                  }
+                  else {
+                    return const Center(child: Text('Aucun client trouvé.'));
                   }
                 }
               },
@@ -237,13 +247,14 @@ class _ClientsViewState extends State<ClientsView> {
             endIndent: 10,
           ),
           Align(
-
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: ElevatedButton.icon(
-                label: Text("Envoyer"),
-                onPressed: (){},
-                icon: Icon(Icons.send),
+                label: const Text("Envoyer"),
+                onPressed: (){
+                  print(selectedEmails);
+                },
+                icon:const Icon(Icons.send),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.vert,
                     foregroundColor: AppColors.blanc,

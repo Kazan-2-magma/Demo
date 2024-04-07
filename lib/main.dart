@@ -11,6 +11,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp (MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: "my app",
     home: AuthPage(),
   ));

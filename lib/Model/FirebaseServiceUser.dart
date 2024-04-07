@@ -88,7 +88,7 @@ class FirebaseServiceUser {
     await _auth.signOut();
   }
 
-  //list de uesrs
+  //list de users
   Stream<List<Userapp>> getUsers() {
     return _userCollection.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {

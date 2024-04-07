@@ -34,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
               key: _formkey,
               child: Center(
                   child: Column(
-                children: [
+                    children: [
                   const SizedBox(
                     height: 10,
                   ),
@@ -280,10 +280,8 @@ class _LoginViewState extends State<LoginView> {
         String roleuser = user.first.role;
         if (roleuser == "admin") {
           String? signInResult = await widget.firebaseService.signInWithEmailAndPassword(email.text, password.text);
-
           if (signInResult == null) {
             CustomSnackBar.showCustomSnackBar(context, "Succès", "Vous êtes connecté", AppColors.vert, Icons.done);
-
           } else {
             CustomSnackBar.showCustomSnackBar(context, "Erreur", signInResult, AppColors.rouge, Icons.error);
           }

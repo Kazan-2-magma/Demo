@@ -73,20 +73,20 @@ class _userViewState extends State<userView> {
                     child: TextFormField(
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelStyle: TextStyle(
-                          color: AppColors.rouge,
+                        labelStyle:const TextStyle(
+                          color: AppColors.bleu,
                         ),
                         labelText: 'Recherche',
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.rouge,
+                          borderSide:const BorderSide(
+                            color: AppColors.bleu,
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.rouge,
+                          borderSide:const BorderSide(
+                            color: AppColors.bleu,
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(10),
@@ -137,39 +137,38 @@ class _userViewState extends State<userView> {
             indent: 10,
             endIndent: 10,
           ),
-          Text(
+          const Text(
             "Liste des Utilisateurs ",
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: StreamBuilder<List<Userapp>>(
-              stream: firebaseService.getUsers(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return ListView.builder(
-                    itemCount: _Users.length,
+          StreamBuilder<List<Userapp>>(
+            stream: firebaseService.getUsers(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if(snapshot.hasError){
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: _allUsers.length,
                     itemBuilder: (context, index) {
-
-                      final user = _Users[index];
+                      final user = _allUsers[index];
                       return Card(
                         elevation: 2.0,
                         margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                           title: Text(
-                            "${user.lastName } ${user.firstName }" ,
+                            "${user.lastName } ${user.firstName }",
                             style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
-                            "Email :${user.email}\n"
+                                "Email :${user.email}\n"
                                 "Telephone :${user.phoneNumber}\n"
                                 "Role :${user.role}",
                             style: const TextStyle(fontSize: 14.0),
@@ -182,31 +181,27 @@ class _userViewState extends State<userView> {
                                   indexG = user.id_user;
                                   indexmdp=user.password;
                                   _showDeleteDialog(context);
-
-
                                 },
                                 icon: const Icon(Icons.delete,size: 30,),
                                 color:AppColors.rouge,
                               ),
                               IconButton(
-
                                 onPressed: () {
                                   _showEditDialog(context, user);
-
                                 },
                                 icon: const Icon(Icons.edit,size: 30,),
                                 color: AppColors.vert,
                               ),
                             ],
                           ),
-
+                            
                         ),
                       );
                     },
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),

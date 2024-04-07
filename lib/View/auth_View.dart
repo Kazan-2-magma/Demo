@@ -1,4 +1,5 @@
 
+import 'package:cinq_etoils/Model/FirebaseServiceClient.dart';
 import 'package:cinq_etoils/Model/FirebaseServiceUser.dart';
 import 'package:cinq_etoils/View/pagesAdmin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +15,15 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+
   final FirebaseServiceUser firebaseService=FirebaseServiceUser();
+  final FirebaseServiceClient firebaseServiceClient = FirebaseServiceClient();
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {

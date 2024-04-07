@@ -42,8 +42,8 @@ class _ajouteUtilisateurState extends State<ajouteUtilisateur> {
       setState(() {
         projects = fetchedProjects;
         // Set the default project here
-        if (_selectedRole!='admin') {
-          selectedProjectId =
+        if (_selectedRole!='admin'){
+              selectedProjectId =
               projects.first.id; // Select the first project by default
         }
       });
@@ -404,10 +404,10 @@ class _ajouteUtilisateurState extends State<ajouteUtilisateur> {
                         _selectedRole= value!;
                       });
                     },
-                  ),const Text('Admin',style: TextStyle(color: AppColors.bleu,fontSize: 20,fontWeight: FontWeight.bold),),
+                  ),
+                  const Text('Admin',style: TextStyle(color: AppColors.bleu,fontSize: 15,fontWeight: FontWeight.bold),),
                   const SizedBox(width: 20,),
                   Radio(
-
                     fillColor: MaterialStateColor.resolveWith((states) => AppColors.bleu),
                     focusColor: MaterialStateColor.resolveWith((states) => AppColors.bleu),
                     value: 'partenaire',
@@ -417,7 +417,8 @@ class _ajouteUtilisateurState extends State<ajouteUtilisateur> {
                         _selectedRole = value!;
                       });
                     },
-                  ),const Text('Partenaire' ,style: TextStyle(color: AppColors.bleu,fontSize: 20,fontWeight: FontWeight.bold),),
+                  ),
+                  const Text('Partenaire' ,style: TextStyle(color: AppColors.bleu,fontSize: 15,fontWeight: FontWeight.bold),),
                 ],
               ),
               if (_selectedRole == 'partenaire')
@@ -465,19 +466,21 @@ class _ajouteUtilisateurState extends State<ajouteUtilisateur> {
               const SizedBox(height: 10,),
               Row(
                 children: [
-                  ElevatedButton.icon(
-                    label: const Text("annuler"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.close),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.rouge,
-                        foregroundColor: AppColors.blanc,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                  Flexible(
+                    child: ElevatedButton.icon(
+                      label: const Text("annuler"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.rouge,
+                          foregroundColor: AppColors.blanc,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                   ),
-                  const SizedBox(width: 40,),
+                  const SizedBox(width: 10,),
                   ElevatedButton.icon(
                     label: const Text("Ajouter"),
                     onPressed: () {

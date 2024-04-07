@@ -50,155 +50,148 @@ class _ProjetsViewState extends State<ProjetsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Column(
-          children: [
-            Row(children: [
-              Expanded(//Bar de recherche
-                child: Align(
-                  alignment: const AlignmentDirectional(0, -1),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        controller: _searchController,
-                        onChanged: _searchProjects,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelStyle: const TextStyle(
-                            color: AppColors.bleu,
-                          ),
-                          labelText: 'Recherche',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppColors.bleu,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppColors.bleu,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          contentPadding: const EdgeInsets.all(12),
-                          prefixIcon: const Icon(Icons.search,color: AppColors.bleu,),
-                          suffixIcon: _searchController.text.isNotEmpty ? IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _searchController.clear();
-                                _searchProjects('');
-                              });
-
-                            },
-                            icon: const Icon(Icons.close,color: AppColors.rouge,),
-                          ) : null,
-                        ),
+    return Column(
+      children: [
+        Row(children: [
+          Expanded(//Bar de recherche
+            child: Align(
+              alignment: const AlignmentDirectional(0, -1),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextFormField(
+                    controller: _searchController,
+                    onChanged: _searchProjects,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelStyle: const TextStyle(
+                        color: AppColors.bleu,
                       ),
+                      labelText: 'Recherche',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.bleu,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.bleu,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      contentPadding: const EdgeInsets.all(12),
+                      prefixIcon: const Icon(Icons.search,color: AppColors.bleu,),
+                      suffixIcon: _searchController.text.isNotEmpty ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _searchController.clear();
+                            _searchProjects('');
+                          });
+
+                        },
+                        icon: const Icon(Icons.close,color: AppColors.rouge,),
+                      ) : null,
                     ),
                   ),
                 ),
               ),
-              //bouton ajouter
-              Align(
-                alignment: const AlignmentDirectional(1, -1),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 4, 5, 4),
-                  child: ElevatedButton.icon(
-                    label: const Text("Ajouter"),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ajouteProjets(firebaseService: widget.firebaseService,);
-                        },
-                      ).then((_) {
-                        // Appeler _loadProjects() lorsque la boîte de dialogue est fermée
-                        _loadProjects();
-                      });
+            ),
+          ),
+          //bouton ajouter
+          Align(
+            alignment: const AlignmentDirectional(1, -1),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 4, 5, 4),
+              child: ElevatedButton.icon(
+                label: const Text("Ajouter"),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ajouteProjets(firebaseService: widget.firebaseService,);
                     },
-                    icon: const Icon(Icons.add_business),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.vert,
-                        foregroundColor: AppColors.blanc,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                  ),
-                ),
-              ),
-            ]),
-            const Text("List Projets : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-            const Divider(
-              height: 20,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-            Expanded(
-              child: StreamBuilder<List<Projet>>(
-                stream: widget.firebaseService.getProjets(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-
-                    return ListView.builder(
-                      itemCount: _projects.length,
-                      itemBuilder: (context, index) {
-                        final projet = _projects[index];
-                        return Card(
-                          elevation: 2.0,
-                          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                            title: Text(
-                              projet.nomProjet,
-                              style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              '${projet.email}\n${projet.numeroTelephone}',
-                              style: const TextStyle(fontSize: 14.0),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    indexG = projet.id;
-                                    _showDeleteDialog(context);
-
-
-                                  },
-                                  icon: const Icon(Icons.delete,size: 30,),
-                                  color:AppColors.rouge,
-                                ),
-                                IconButton(
-
-                                  onPressed: () {
-                                    _showEditDialog(context, projet);
-
-                                  },
-                                  icon: const Icon(Icons.edit,size: 30,),
-                                  color: AppColors.vert,
-                                ),
-                              ],
-                            ),
-
-                          ),
-                        );
-                      },
-                    );
-                  }
+                  ).then((_) {
+                    // Appeler _loadProjects() lorsque la boîte de dialogue est fermée
+                    _loadProjects();
+                  });
                 },
+                icon: const Icon(Icons.add_business),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.vert,
+                    foregroundColor: AppColors.blanc,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10))),
               ),
             ),
-          ],
-        )
+          ),
+        ]),
+        const Text("List Projets : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+        const Divider(
+          height: 20,
+          thickness: 1,
+          indent: 10,
+          endIndent: 10,
+        ),
+        StreamBuilder<List<Projet>>(
+          stream: widget.firebaseService.getProjets(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final projet = snapshot.data![index];
+                    return Card(
+                      elevation: 2.0,
+                      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                        title: Text(
+                          projet.nomProjet,
+                          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          '${projet.email}\n${projet.numeroTelephone}',
+                          style: const TextStyle(fontSize: 14.0),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                indexG = projet.id;
+                                _showDeleteDialog(context);
+                              },
+                              icon: const Icon(Icons.delete,size: 30,),
+                              color:AppColors.rouge,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _showEditDialog(context, projet);
+                              },
+                              icon: const Icon(Icons.edit,size: 30,),
+                              color: AppColors.vert,
+                            ),
+                          ],
+                        ),
+                
+                      ),
+                    );
+                  },
+                ),
+              );
+            }
+          },
+        ),
+      ],
     );
   }
   void _showDeleteDialog(BuildContext context) {
@@ -228,7 +221,6 @@ class _ProjetsViewState extends State<ProjetsView> {
                 _loadProjects();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Container(
-
                     padding: const EdgeInsets.all(15),
                     height: 80,
                     decoration: const BoxDecoration(
@@ -277,7 +269,7 @@ class _ProjetsViewState extends State<ProjetsView> {
               key: formKey,
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
                         margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -489,63 +481,67 @@ class _ProjetsViewState extends State<ProjetsView> {
                     ),
                     const SizedBox(height: 10,),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.rouge,
-                                foregroundColor: AppColors.blanc,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                            child: const Text("annuler"),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.rouge,
+                                  foregroundColor: AppColors.blanc,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              child: const Text("annuler"),
+                            ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                widget.firebaseService.modifierProjet(projet.id, projet);
-                                Navigator.of(context).pop();
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Container(
-
-                                    padding: const EdgeInsets.all(15),
-                                    height: 80,
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.jaune,
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  widget.firebaseService.modifierProjet(projet.id, projet);
+                                  Navigator.of(context).pop();
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Container(
+                                      padding: const EdgeInsets.all(15),
+                                      height: 80,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.jaune,
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: const Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text("Succès !",style: TextStyle(fontSize: 20,color: AppColors.blanc),),
+                                              SizedBox(width: 10,),
+                                              Icon(Icons.done,color: AppColors.blanc,),
+                                            ],
+                                          ),
+                                          Text("Le projet a été modifié",style: TextStyle(fontSize: 15,color: AppColors.blanc),),
+                                        ],
+                                      ),
                                     ),
-                                    child: const Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text("Succès !",style: TextStyle(fontSize: 20,color: AppColors.blanc),),
-                                            SizedBox(width: 10,),
-                                            Icon(Icons.done,color: AppColors.blanc,),
-                                          ],
-                                        ),
-                                        Text("Le projet a été modifié",style: TextStyle(fontSize: 15,color: AppColors.blanc),),
-                                      ],
-                                    ),
-                                  ),
-                                  behavior: SnackBarBehavior.floating,
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                ));
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.vert,
-                                foregroundColor: AppColors.blanc,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                            child: const Text("Modifier"),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                  ));
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.vert,
+                                  foregroundColor: AppColors.blanc,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              child: const Text("Modifier"),
+                            ),
                           ),
                         ),
                       ],

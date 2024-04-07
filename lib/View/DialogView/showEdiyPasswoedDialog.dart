@@ -41,9 +41,8 @@ class _showEditPasswordDialogState extends State<showEditPasswordDialog> {
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.vert
                   ),
-                  child: const Text("Modifier\nMot de Pass",textAlign: TextAlign.center,style: TextStyle(color: AppColors.blanc,fontSize: 25),)),
+                  child: const Text("Modifier\nMot de Pass",textAlign: TextAlign.center,style: TextStyle(color: AppColors.blanc,fontSize: 20),)),
               const SizedBox(height: 10,),
-
               const SizedBox(height: 10,),
               TextFormField(
                 controller: mmdp,
@@ -172,9 +171,9 @@ class _showEditPasswordDialogState extends State<showEditPasswordDialog> {
               ),
               const SizedBox(height: 10,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                  Flexible(
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -184,7 +183,7 @@ class _showEditPasswordDialogState extends State<showEditPasswordDialog> {
                           foregroundColor: AppColors.blanc,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      child: const Text("annuler"),
+                      child: const Text("Annuler"),
                     ),
                   ),
                   Padding(
@@ -198,7 +197,7 @@ class _showEditPasswordDialogState extends State<showEditPasswordDialog> {
                             await FirebaseFirestore.instance.collection('users').doc(user1?.uid).update({'password': newPassword});
                             // Password updated successfully, show a snackbar
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('Mot de passe modifié avec succès'),
                                 backgroundColor: Colors.green,
                               ),

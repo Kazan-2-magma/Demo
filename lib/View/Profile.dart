@@ -42,7 +42,6 @@ class _ProfilState extends State<ProfilView> {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);// Use gallery as image source, you can change it to camera if needed
 
-
     if (pickedFile != null) {
       setState(() {
         _isUploading = true;
@@ -93,7 +92,7 @@ class _ProfilState extends State<ProfilView> {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Card(
               elevation: 5,
               shape: RoundedRectangleBorder(
@@ -106,7 +105,7 @@ class _ProfilState extends State<ProfilView> {
                     borderRadius: BorderRadius.circular(15.0),
                     color: Colors.white
                 ),
-                child: Center(
+                child:const Center(
                   child: Text(
                     "Profile",
                     style: TextStyle(
@@ -118,11 +117,11 @@ class _ProfilState extends State<ProfilView> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Container(
               width: MediaQuery.of(context).size.width*0.9,
               height:  MediaQuery.of(context).size.height*0.67,
-              padding: EdgeInsets.fromLTRB(5, 20, 5, 10),
+              padding: const EdgeInsets.fromLTRB(5, 20, 5, 10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
@@ -131,7 +130,7 @@ class _ProfilState extends State<ProfilView> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -147,11 +146,13 @@ class _ProfilState extends State<ProfilView> {
                             alignment: Alignment.center,
                             children: [
                               CircleAvatar(
-                                backgroundImage: image != null ? NetworkImage(image) : const NetworkImage("https://firebasestorage.googleapis.com/v0/b/cinq-etoiles-f2bce.appspot.com/o/profil%2Fdefault_imag.png?alt=media&token=2746acb3-e5cd-4218-a036-e2372b93e3fa"),
+                                backgroundImage: image != null
+                                    ? NetworkImage(image)
+                                    : const NetworkImage("https://firebasestorage.googleapis.com/v0/b/cinq-etoiles-f2bce.appspot.com/o/profil%2Fdefault_imag.png?alt=media&token=2746acb3-e5cd-4218-a036-e2372b93e3fa"),
                                 radius: 70,
                               ),
                               if (_isUploading)
-                                CircularProgressIndicator(
+                               const CircularProgressIndicator(
                                  strokeCap: StrokeCap.round,
                                   strokeAlign: 10,
                                   strokeWidth: 9.0,
@@ -162,16 +163,16 @@ class _ProfilState extends State<ProfilView> {
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal:20,vertical:20),
+                        padding: const EdgeInsets.symmetric(horizontal:20,vertical:20),
                         child: ElevatedButton.icon(
-                          label: Text("Modifier",style: TextStyle(fontSize: 12),),
+                          label:const Text("Modifier",style: TextStyle(fontSize: 12),),
                           onPressed: ()   {
                             print(user1!.uid);
                            _showEditDialog(context, _user,user1!.uid);
                           },
-                          icon: Icon(Icons.edit),
+                          icon:const Icon(Icons.edit),
                           style: ElevatedButton.styleFrom(
                             fixedSize:Size.fromWidth( MediaQuery.of(context).size.width*0.4,),
                             backgroundColor: AppColors.vert,
@@ -184,15 +185,15 @@ class _ProfilState extends State<ProfilView> {
                       ),
                     ],
                   ),
-                  Divider(  height:20,
+                  const Divider(height:20,
                     thickness: 1,
                     indent: 10,
                     endIndent: 10,),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Container(
                         width: 30,
                         height: 30,
@@ -209,74 +210,74 @@ class _ProfilState extends State<ProfilView> {
                           shape: BoxShape.circle,
                           color: AppColors.rouge,
                         ),
-                        child: Icon(
+                        child:const Icon(
                           Icons.person,
                           size: 20,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(width: 20,),
-                      Expanded(
+                      const SizedBox(width: 20,),
+                      const Expanded(
                         child: Text(
                           "Nom : ",
                           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         nom,
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
+                        style:const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Container(
                         width: 30,
                         height: 30,
-                        margin: EdgeInsets.only(left: 10),
+                        margin:const EdgeInsets.only(left: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3),
+                              offset:const Offset(0, 3),
                             ),
                           ],
                           shape: BoxShape.circle,
                           color: AppColors.rouge,
                         ),
-                        child: Icon(
+                        child:const Icon(
                           Icons.person,
                           size: 20,
                           color: AppColors.blanc,
                         ),
                       ),
-                      SizedBox(width: 20,),
-                      Expanded(
+                      const SizedBox(width: 20,),
+                      const Expanded(
                         child: Text(
                           "Prenom : ",
                           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         prenom,
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
+                        style:const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Container(
                         width: 30,
                         height: 30,
@@ -362,61 +363,61 @@ class _ProfilState extends State<ProfilView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Container(
                         width: 30,
                         height: 30,
-                        margin: EdgeInsets.only(left: 10),
+                        margin:const EdgeInsets.only(left: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 5,
-                              offset: Offset(0, 3),
+                              offset:const Offset(0, 3),
                             ),
                           ],
                           shape: BoxShape.circle,
                           color: AppColors.jaune,
                         ),
-                        child: Icon(
+                        child:const Icon(
                           Icons.email,
                           size: 20,
                           color: AppColors.blanc,
                         ),
                       ),
-                      SizedBox(width: 20,),
-                      Expanded(
+                      const SizedBox(width: 20,),
+                      const Expanded(
                         child: Text(
                           "Role : ",
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
-                      SizedBox(width: 20,),
+                      const SizedBox(width: 20,),
                       Text(
                         role,
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
+                        style:const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal:30,vertical:40),
+                    padding:const EdgeInsets.symmetric(horizontal:30,vertical:40),
                     child: ElevatedButton.icon(
-                      label: Text("Modifier Mot de pass",style: TextStyle(fontSize: 12),),
+                      label:const Text("Modifier Mot de pass",style: TextStyle(fontSize: 12),),
                       onPressed: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return showEditPasswordDialog();
+                            return const showEditPasswordDialog();
                           },
                         ).then((_) {
                           
                         });
                       },
-                      icon: Icon(Icons.edit),
+                      icon:const Icon(Icons.edit),
                       style: ElevatedButton.styleFrom(
                         fixedSize:Size.fromWidth( MediaQuery.of(context).size.width,),
                         backgroundColor: AppColors.vert,
@@ -669,8 +670,7 @@ class _ProfilState extends State<ProfilView> {
                     const SizedBox(height: 10,),
                     Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        Flexible(
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -683,6 +683,7 @@ class _ProfilState extends State<ProfilView> {
                             child: const Text("annuler"),
                           ),
                         ),
+                        const SizedBox(width: 10.0,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: ElevatedButton(

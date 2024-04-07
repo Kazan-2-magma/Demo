@@ -184,7 +184,7 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: const EdgeInsets.all(6),
                           child: Text(
-                            "${_clientsnumber}",
+                            "${_clientsnumber.length}",
                             style: const TextStyle(fontSize: 20,color: AppColors.blanc),
                           ),
                         ),
@@ -320,7 +320,7 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: const EdgeInsets.all(6),
                           child: Text(
-                            "${_Userscpt}",
+                            "${_Userscpt.length}",
                             style: const TextStyle(fontSize: 20,color: AppColors.blanc),
                           ),
                         ),
@@ -331,6 +331,10 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          ElevatedButton(
+              onPressed: (){
+              },
+              child: Text("Click"))
 
 
         ],

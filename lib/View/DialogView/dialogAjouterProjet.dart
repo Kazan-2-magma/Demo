@@ -34,7 +34,7 @@ class _ajouteProjetsState extends State<ajouteProjets> {
                         border: Border.all(color: Colors.blueAccent),
                         color: AppColors.bleu
                       ),
-          child: Title(color: AppColors.bleu, child: const Text("Ajouter Projet",style: TextStyle(color: AppColors.blanc,fontSize: 30),))),
+                    child: Title(color: AppColors.bleu, child: const Text("Ajouter Projet",style: TextStyle(color: AppColors.blanc,fontSize: 20),))),
               const SizedBox(height: 10,),
               TextFormField(
                 onSaved: (value) {
@@ -234,37 +234,41 @@ class _ajouteProjetsState extends State<ajouteProjets> {
               const SizedBox(height: 10,),
               Row(
                 children: [
-                  ElevatedButton.icon(
-                    label: const Text("annuler"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.close),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.rouge,
-                        foregroundColor: AppColors.blanc,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                  Flexible(
+                    child: ElevatedButton.icon(
+                      label: const Text("annuler"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.rouge,
+                          foregroundColor: AppColors.blanc,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                   ),
-                  const SizedBox(width: 40,),
-                  ElevatedButton.icon(
-                    label: const Text("Ajouter"),
-                    onPressed: () { if (_formKey.currentState!.validate()) {
-                      _formKey.currentState?.save();
-                      // Call the method to add the project using FirebaseService
-                      widget.firebaseService.ajouterProjet(_projet);
-                      Navigator.of(context).pop();
-                      CustomSnackBar.showCustomSnackBar(context, "Succès", "Le projet est bien ajouté", AppColors.vert, Icons.done);
-                    }
+                  const SizedBox(width: 10.0,),
+                  Flexible(
+                    child: ElevatedButton.icon(
+                      label: const Text("Ajouter"),
+                      onPressed: () { if (_formKey.currentState!.validate()) {
+                        _formKey.currentState?.save();
+                        // Call the method to add the project using FirebaseService
+                        widget.firebaseService.ajouterProjet(_projet);
+                        Navigator.of(context).pop();
+                        CustomSnackBar.showCustomSnackBar(context, "Succès", "Le projet est bien ajouté", AppColors.vert, Icons.done);
+                      }
 
-                    },
-                    icon: const Icon(Icons.add_business),
-                    style: ElevatedButton.styleFrom(
+                      },
+                      icon: const Icon(Icons.add_business),
+                      style: ElevatedButton.styleFrom(
 
-                        backgroundColor: AppColors.vert,
-                        foregroundColor: AppColors.blanc,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                          backgroundColor: AppColors.vert,
+                          foregroundColor: AppColors.blanc,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                   ),
                 ],
               ),
