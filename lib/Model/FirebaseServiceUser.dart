@@ -20,7 +20,7 @@ class FirebaseServiceUser {
     }
   }
 
-  //delete user
+
   Future<void> deleteUser(String userId, String password) async {
     try {
       // Re-authenticate the user
@@ -38,7 +38,7 @@ class FirebaseServiceUser {
       throw e; // Rethrow the error to handle it in the UI if needed
     }
   }
-  // Modify user by ID
+
   Future<void> modifyUserById(String userId, Userapp updatedUser) async {
     try {
       // Update user document in Firestore
@@ -48,7 +48,6 @@ class FirebaseServiceUser {
       throw e; // Rethrow the error to handle it in the UI if needed
     }
   }
-  // Fonction pour récupérer toutes les informations de l'utilisateur à partir de Cloud Firestore
   Future<Map<String, dynamic>?> getUserInfo(String userId) async {
     try {
       DocumentSnapshot userSnapshot = await _userCollection.doc(userId).get();
